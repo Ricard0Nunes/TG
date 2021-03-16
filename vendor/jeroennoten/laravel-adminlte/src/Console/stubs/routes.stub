@@ -1,0 +1,6 @@
+
+Auth::routes();
+
+Route::get('/registo', function() {
+    return view('');
+})->name('home')->middleware('auth');

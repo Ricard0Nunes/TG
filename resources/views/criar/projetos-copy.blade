@@ -1,0 +1,292 @@
+
+@extends('adminlte::page')
+
+@section('Cliente', 'AdminLTE')
+
+<style>
+    /* Div - form Area de projeto */
+    #hidden_div_areaProjeto {
+        display: none;
+    }
+</style>
+
+@section('content')
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+
+
+<div class="box   box-success">
+            <div class="box-header with-border" >
+                    <h1 class="box-title" ><strong>CRIAR UM PROJETO</strong></h1>
+                    <div class="box-tools pull-right">
+                      <!-- Buttons, labels, and many other things can be placed here! -->
+                      <!-- Here is a label for example -->
+                      {{-- <span class="label label-primary">Criar um Cargo</span> --}}
+                    </div><!-- /.box-tools -->
+                  </div><!-- /.box-header -->
+
+<div class="box-body">
+      {!! Form::open(array('route' => 'projeto.store','method'=>'POST','files'=>'true')) !!}
+      <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                  @if(Session::has('success'))
+                        <div class="alert alert-success">
+                              {{ Session::get('success')}}
+                        </div>
+                  @elseif( Session::has('warning'))
+                        <div class="alert alert-danger">
+                              {{ Session::get('warning')}}
+                        </div>
+                  @endif 
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-3">
+                  <div class="form-group">
+                        {!! Form::label('codProj','Código de Projeto* :') !!}
+                        <div class="">
+                              {!! Form::text('codProj',null,['class'=>'form-control']) !!}
+                              {!! $errors->first('codProj','<p class="alert alert-danger">:message</p>')!!}
+                        </div>
+                  </div>
+            </div>
+            
+            <div class="col-xs-12 col-sm-12 col-md-3">
+                  <div class="form-group">
+                        {!! Form::label('nomeProjeto','Nome do Projeto* :') !!}
+                        <div class="">
+                        {!! Form::text('nomeProjeto',null,['class'=>'form-control']) !!}
+                        {!! $errors->first('nomeProjeto','<p class="alert alert-danger">:message</p>')!!}
+                        </div>
+                  </div>
+            </div>
+  <div class="col-xs-12 col-sm-12 col-md-3">
+        <div class="form-group">
+              {!! Form::label('descricaoProjeto','Descrição do Projeto* :') !!}
+              <div class="">
+                    {!! Form::text('descricaoProjeto',null,['class'=>'form-control']) !!}
+                    {!! $errors->first('descricaoProjeto','<p class="alert alert-danger">:message</p>')!!}
+  
+              </div>
+        </div>
+  </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-3">
+        <div class="form-group">
+              {!! Form::label('visivel','Visibilidade* :') !!}
+    
+              <div class="">
+                    {!! Form::radio('visivel', 0,['class'=>'form-control']) !!} Invisivel  &nbsp;&nbsp;&nbsp;
+                    {!! Form::radio('visivel', 1,['class'=>'form-control']) !!} Visivel
+                    {!! $errors->first('visivel','<p class="alert alert-danger">:message</p>')!!}
+    
+              </div>
+        </div>
+    </div>
+   
+    		
+
+</div>
+
+<div class="row">
+          
+                        {{-- <div class="form-group" class="hidden">
+                              {!! Form::label('fk_criadoPor','Custo Previstoaa*:') !!} --}}
+                              <div class="">
+                                    {!! Form::number('fk_criadoPor',Auth::id(),['hidden']) !!}
+                                    {!! $errors->first('fk_criadoPor','<p class="alert alert-danger">:message</p>')!!}
+                  
+                            
+                     
+                  </div>	
+
+          <div class="col-xs-12 col-sm-12 col-md-3">
+                  <div class="form-group">
+                        {!! Form::label('dataPrevistaInicio','Data Prevista de Inicio* :') !!}
+                        <div class="">
+                              {!! Form::date('dataPrevistaInicio',null,['class'=>'form-control']) !!}
+                              {!! $errors->first('dataPrevistaInicio','<p class="alert alert-danger">:message</p>')!!}
+            
+                        </div>
+                  </div>
+            </div>
+
+          <div class="col-xs-12 col-sm-12 col-md-3">
+                <div class="form-group">
+                      {!! Form::label('dataInicio','Data de Inicio:') !!}
+                      <div class="">
+                            {!! Form::date('dataInicio',null,['class'=>'form-control']) !!}
+                            {!! $errors->first('dataInicio','<p class="alert alert-danger">:message</p>')!!}
+          
+                      </div>
+                </div>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-3">
+                <div class="form-group">
+                        {!! Form::label('dataPrevistaFim','Data Prevista de Fim*:') !!}
+                        <div class="">
+                              {!! Form::date('dataPrevistaFim',null,['class'=>'form-control']) !!}
+                              {!! $errors->first('dataPrevistaFim','<p class="alert alert-danger">:message</p>')!!}
+            
+                        </div>
+                </div>
+          </div> 
+         
+</div>
+<div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-3">
+                <div class="form-group">
+                      {!! Form::label('custoPrevisto','Custo Previsto* :') !!}
+                      <div class="">
+                            {!! Form::text('custoPrevisto',null,['class'=>'form-control']) !!}
+                            {!! $errors->first('custoPrevisto','<p class="alert alert-danger">:message</p>')!!}
+          
+                      </div>
+                </div>
+          </div>	
+          <div class="col-xs-12 col-sm-12 col-md-3">
+                  <div class="form-group">
+                        {!! Form::label('horasPrevistas','Horas Previstas*:') !!}
+                        <div class="">
+                              {!! Form::time('horasPrevistas',null,['class'=>'form-control']) !!}
+                              {!! $errors->first('horasPrevistas','<p class="alert alert-danger">:message</p>')!!}
+            
+                        </div>
+                  </div>
+            </div>
+
+
+
+			
+
+          <div class="col-xs-12 col-sm-12 col-md-4">
+                  <div class="form-group">
+                        {!! Form::label('observacoes','Observações:') !!}
+                        <div class="">
+                              {!! Form::textarea('observacoes',null,['class'=>'form-control' ,'rows' => 1 ]) !!}
+                              {!! $errors->first('observacoes','<p class="alert alert-danger">:message</p>')!!}
+            
+                        </div>
+                  </div>
+            </div>
+</div>
+
+ {{-- script para mostrar formulário para criar nova Área de Projeto --}}
+ <script>
+      function showDivAreaProjeto(divId, element){
+           document.getElementById(divId).style.display = element.value == 'novaAreaProjeto' ? 'block' : 'none';
+       }
+</script>
+
+onchange="showDivAreaProjeto('hidden_div_areaProjeto', this)"
+
+'onchange'=>"showProduct(this.value);"
+
+<div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-3">
+                  <div class="form-group">
+                        {!! Form::label('fk_areaProj','Área de Projeto* :') !!}
+                        
+                        <div class="">
+                              {!! Form::select('fk_areaProj', $area ,null, array('class' => 'form-control', 'onchange'=>'showDivAreaProjeto(hidden_div_areaProjeto, this)')) !!}
+                              {!! $errors->first('fk_areaProj','<p class="alert alert-danger">:message</p>')!!}
+                              
+                               </div>
+            
+                        </div>
+                  </div>
+           
+            <div class="col-xs-12 col-sm-12 col-md-3">
+                  <div class="form-group">
+                        {!! Form::label('fk_urgencia','Urgência* :') !!}
+                        <div class="">
+                                    {!! Form::select('fk_urgencia', $urgencia ,null,
+                                    array('class' => 'form-control')) !!}
+                              {!! $errors->first('fk_urgencia','<p class="alert alert-danger">:message</p>')!!}
+            
+                        </div>
+                  </div>
+            </div> 
+            <div class="col-xs-12 col-sm-12 col-md-3">
+                        <div class="form-group">
+                              {!! Form::label('fk_responsavel','Responsavel do Projeto* :') !!}
+                              <div class="">
+                                          {!! Form::select('fk_responsavel', $responsavel ,null,
+                                          array('class' => 'form-control')) !!}
+                                    {!! $errors->first('fk_responsavel','<p class="alert alert-danger">:message</p>')!!}
+                  
+                              </div>
+                        </div>
+                  </div> 
+                  <div class="col-xs-12 col-sm-12 col-md-3">
+                              <div class="form-group">
+                                    {!! Form::label('fk_cliente','Cliente*:') !!}
+                                    <div class="">
+                                                {!! Form::select('fk_cliente', $cliente ,null,
+                                                array('class' => 'form-control')) !!}
+                                          {!! $errors->first('fk_cliente','<p class="alert alert-danger">:message</p>')!!}
+                        
+                                    </div>
+                              </div>
+                        </div> 
+  </div>
+
+  <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-3">
+            <div class="form-group">
+                        {!! Form::label('fk_empresa','Empresa* :') !!}
+                  <div> 
+                        {!! Form::select('fk_empresa', $empresas, null, array('class' => 'form-control', 'id'=>'empresa', 'placeholder' => 'Escolha a empresa')) !!}
+                  </div>
+               </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 col-md-3"> 
+            {!! Form::label('fk_departamento','Departamento* :') !!}
+            <select name="fk_departamento[]" class="form-control" id="departamento" multiple>
+                  <option value=""></option>
+            </select>
+      </div>
+  </div>
+
+* campos de preenchimento obrigatório. 
+  <script  type="text/javascript">
+      $('#empresa').on('change', function(e){
+          console.log(e);
+          var pk_empresa = e.target.value;
+
+      $.get('/ajax-departamento?pk_empresa='+ pk_empresa, function(data){
+      $('#departamento').empty();
+      $.each(data, function(index, departamentoObj){
+                                                                                                      /*nome do departamento*/
+      $('#departamento').append('<option value="' + departamentoObj.fk_departamento + '">' + departamentoObj.abreviatura + '</option>');
+            });
+      });
+      });
+  </script>
+
+
+
+		
+
+
+</div>
+<div class="row" align="center">
+            <div class="col-xs-12 col-sm-12 col-md-4" >
+    
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-2" >
+                        <a href="" ><button type="submit" class="btn btn-block btn-success btn-flat">
+                                Adicionar Projeto</button></a>
+                    </div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-2" >
+                                <a href="{{ URL::previous() }}" ><button type="button" class="btn btn-block btn-warning btn-flat">
+                                        Voltar</button></a>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4" >
+    
+                </div>
+    </div><br><br>
+</div>
+{!! Form::close()!!}
+@stop
