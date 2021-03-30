@@ -654,6 +654,20 @@ Route::post('/editariva', 'IvaController@edit')->name('iva.editar');
 Route::post('/novoIva', 'IvaController@store')->name('iva.store');
 Route::post('/updateiva', 'IvaController@update')->name('iva.update');
 
+
+//Produçao
+
+//>> estado ordem producao
+
+
+
+
+
+
+
+
+
+
 //FAQ
 
 Route::get('/faq', function(){
